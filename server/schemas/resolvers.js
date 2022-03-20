@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, NFT, Post } = require("../models");
+const { User, NFT } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -22,13 +22,13 @@ const resolvers = {
         },
       });
     },
-    posts: async (_, { username }) => {
-      const params = username ? { username } : {};
-      return Post.find(params).sort({ createdAt: -1 }).populate("nft");
-    },
-    post: async (_, { postId }) => {
-      return Post.findOne({ _id: postId }).populate("nft");
-    },
+    // posts: async (_, { username }) => {
+    //   const params = username ? { username } : {};
+    //   return Post.find(params).sort({ createdAt: -1 }).populate("nft");
+    // },
+    // post: async (_, { postId }) => {
+    //   return Post.findOne({ _id: postId }).populate("nft");
+    // },
     me: async (_, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate("posts");
@@ -38,8 +38,8 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (_, { username, password }) => {
-      const user = await User.create({ username, password });
+    addUser: async (_, { email, password }) => {
+      const user = await User.create({ email, password });
       const token = signToken(user);
       return { token, user };
     },

@@ -3,34 +3,29 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true,
-    trim: true,
+    unique: true,
+    match: [/.+@.+\..+/, 'Must match an email address!'],
   },
   password: {
     type: String,
     required: true,
     minlength: 5,
   },
-  tagline: {
-    type: String,
-    required: false,
-    default: "This is a Default Tagline",
-  },
-  avatar: {
-    type: String,
-    required: false,
-    default: "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+  points: {
+    type: Number,
+    default: 0
   },
   openSeaAcctLink: {
     type: String,
     required: false,
   },
-  posts: [
+  nfts: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Post",
+      ref: "Nft",
     },
   ],
 });

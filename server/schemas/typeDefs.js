@@ -4,28 +4,12 @@ const typeDefs = gql`
   type User {
     _id: ID!
     username: String!
-    tagline: String
-    avatar: String
+    points: Int
     openSeaLink: String
-    nfts: NFT
-    posts: [Post]
+    nfts: [NFT]
     password: String!
   }
 
-  type Post {
-    _id: ID!
-    description: String
-    nft: NFT
-    comments: [Comment]
-    createdAt: String
-  }
-
-  type Comment {
-    _id: ID!
-    text: String!
-    author: User
-    createdAt: String
-  }
 
   type NFT {
     _id: ID!

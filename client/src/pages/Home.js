@@ -1,10 +1,16 @@
-import Typography from '@mui/material/Typography';
-import MintHomeWallpaper from '../images/HomeWallpaper.png'
+import MintHome from '../images/Home_Wallpaper.png'
+import MintMobileHome from '../images/Mobile_Home_Wallpaper.png'
 
 function Home() {
 
+
   return (
-      <div className="homeImg" style={{ backgroundImage: `url(${MintHomeWallpaper})`}}/>
+    <div>
+      {window.innerWidth <= 415 
+      ? <div className="h-screen w-screen bg-no-repeat bg-cover" style={{ backgroundImage: `url(${MintMobileHome})`}}/>
+      : <div className="h-[700px] w-screen bg-no-repeat bg-cover" style={{ backgroundImage: `url(${MintHome})`}}/>
+      }
+    </div>
   )
 }
 
