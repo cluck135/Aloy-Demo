@@ -31,7 +31,7 @@ const resolvers = {
     // },
     me: async (_, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate("posts");
+        return User.findOne({ _id: context.user._id }).populate("nfts");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -43,16 +43,9 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    login: async (_, { username, password }) => {
-      const user = await User.findOne({ username }).populate({
-        path: "posts",
-        populate: {
-          path: "nft",
-          model: "NFT",
-        },
-      });
-
-
+    login: async (_, { email, password }) => {
+      const user = await User.findOne({ email }).populate("nfts")
+  
       if (!user) {
         throw new AuthenticationError(
           "No user found with this username address"
@@ -69,89 +62,89 @@ const resolvers = {
 
       return { token, user };
     },
-    addPost: async (_, { username, nft, description }) => {
-      const newNft = await NFT.create({
-        name: nft.name,
-        description: nft.description,
-        image: nft.image,
-      });
-      const post = await Post.create({
-        description,
-        nft: newNft._id,
-      });
-      await User.findOneAndUpdate(
-        { username: username },
-        { $addToSet: { posts: post._id } },
-        {
-          new: true,
-        }
-      );
+    // addPost: async (_, { username, nft, description }) => {
+    //   const newNft = await NFT.create({
+    //     name: nft.name,
+    //     description: nft.description,
+    //     image: nft.image,
+    //   });
+    //   const post = await Post.create({
+    //     description,
+    //     nft: newNft._id,
+    //   });
+    //   await User.findOneAndUpdate(
+    //     { username: username },
+    //     { $addToSet: { posts: post._id } },
+    //     {
+    //       new: true,
+    //     }
+    //   );
 
-      const returnPost = {
-        ...post._doc,
-        nft: {
-          ...newNft._doc,
-        },
-      };
+    //   const returnPost = {
+    //     ...post._doc,
+    //     nft: {
+    //       ...newNft._doc,
+    //     },
+    //   };
 
-      return returnPost;
-      // throw new AuthenticationError('You need to be logged in!');
-    },
-    addComment: async (_, { postId, text }, context) => {
-      if (context.user) {
-        return await Post.findOneAndUpdate(
-          { _id: postId },
-          {
-            $addToSet: {
-              comments: { text: text, author: context.user },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      // throw new AuthenticationError('You need to be logged in!');
-    },
-    removePost: async (_, { postId, username }) => {
-      const post = await Post.findOneAndDelete({
-        _id: postId,
-      });
+    //   return returnPost;
+    //   // throw new AuthenticationError('You need to be logged in!');
+    // },
+    // addComment: async (_, { postId, text }, context) => {
+    //   if (context.user) {
+    //     return await Post.findOneAndUpdate(
+    //       { _id: postId },
+    //       {
+    //         $addToSet: {
+    //           comments: { text: text, author: context.user },
+    //         },
+    //       },
+    //       {
+    //         new: true,
+    //         runValidators: true,
+    //       }
+    //     );
+    //   }
+    //   // throw new AuthenticationError('You need to be logged in!');
+    // },
+    // removePost: async (_, { postId, username }) => {
+    //   const post = await Post.findOneAndDelete({
+    //     _id: postId,
+    //   });
 
-      await User.findOneAndUpdate(
-        { username: username },
-        { $pull: { posts: post._id } }
-      );
+    //   await User.findOneAndUpdate(
+    //     { username: username },
+    //     { $pull: { posts: post._id } }
+    //   );
 
-      return post;
-    },
-    removeComment: async (_, { postId, commentId }, context) => {
-      if (context.user) {
-        return Post.findOneAndUpdate(
-          { _id: postId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
-    updateUser: async (_, { username, newTagline, newAvatar }, context) => {
-      return User.findOneAndUpdate(
-        { username: username },
-        {
-          tagline: newTagline,
-          avatar: newAvatar,
-        }
-      );
-    },
+    //   return post;
+    // },
+    // removeComment: async (_, { postId, commentId }, context) => {
+    //   if (context.user) {
+    //     return Post.findOneAndUpdate(
+    //       { _id: postId },
+    //       {
+    //         $pull: {
+    //           comments: {
+    //             _id: commentId,
+    //             commentAuthor: context.user.username,
+    //           },
+    //         },
+    //       },
+    //       { new: true }
+    //     );
+    //   }
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
+    // updateUser: async (_, { email }, context) => {
+    //   return User.findOneAndUpdate(
+    //     { username: username },
+    //     {
+    //       tagline: newTagline,
+    //       avatar: newAvatar,
+    //     }
+    //   );
+    // },
   },
 };
 

@@ -3,15 +3,16 @@ import { useState } from 'react';
 
 import { MenuIcon, XIcon, BeakerIcon } from '@heroicons/react/solid'
 
+import Auth from '../utils/auth';
 import MHlogoBlk from '../images/MH_Logo_Black.png';
 import MHmonoBlk from '../images/MH_Monogram_Black.png';
 
 function Nav() {
   const routes = ["/", "/loyalty"]
   const [showTabs, setShowTabs] = useState(false);
-
+  const loggedIn = Auth.loggedIn();
   return (
-   <div className='font-raleway text-xl w-screen' >
+   <div className='text-xl w-screen' >
      <div className='m-2'>
         {window.innerWidth <= 415
         ? <ul className='flex flex-col w-full justify-center items-center' >
@@ -25,10 +26,11 @@ function Nav() {
             }
 
             {showTabs && 
-            <><Link to="/loyalty" onClick={() => setShowTabs(!showTabs)}>
-            <li>
-              Loyalty Rewards 
-            </li>
+            <>
+            <Link to="/loyalty" onClick={() => setShowTabs(!showTabs)}>
+              <li>
+                Loyalty Rewards 
+              </li>
             </Link>
             <li>
               Our Story
@@ -36,9 +38,14 @@ function Nav() {
             <li>
               Shop Your Stay
             </li>
-            </>}
-
-          </ul>
+            {!loggedIn &&
+              <Link to='/login' onClick={() => setShowTabs(!showTabs)}>
+                <li> 
+                  Login
+                </li>
+              </Link>
+            }</>
+          }</ul>
         : <ul className='flex w-full p-5 justify-between items-center' >
             <li className='flex'>
               <Link className='px-5' to="/">
@@ -61,6 +68,13 @@ function Nav() {
               <div className='px-3'>
                 Shop Your Stay
               </div>
+              {!loggedIn &&
+                <Link to='/login'>
+                  <div>
+                    Login
+                  </div>
+                </Link>
+              }
             </li>
           </ul>
         }

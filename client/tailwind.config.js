@@ -14,7 +14,7 @@ module.exports = {
         Grey10: 'F5F5F5'
       },
       fontFamily: {
-        'raleway': ['Raleway', 'sans-serif']
+        'sans': ['Raleway', 'sans-serif']
       }
     },
     

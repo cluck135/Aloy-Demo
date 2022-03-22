@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Nft from '../components/NFT';
-
 import profilePic from '../images/Default_Profile.png';
 import Auth from '../utils/auth';
 
@@ -8,13 +7,7 @@ const Loyalty = () => {
 
 
 
-// if(!Auth.loggedIn()){
-//   return (
-//     <div>
 
-//     </div>
-//   )
-// }
   return (
     <div className='flex flex-col w-screen lg:items-center '>
       <div className='w-full lg:w-full rounded bg-DarkGreen text-white'>

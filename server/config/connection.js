@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1/web3social", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1/minthouse-nfts", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
