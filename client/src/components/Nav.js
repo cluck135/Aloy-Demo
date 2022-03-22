@@ -29,9 +29,12 @@ function Nav() {
             <>
             <Link to="/loyalty" onClick={() => setShowTabs(!showTabs)}>
               <li>
-                Loyalty Rewards 
+                Minthouse Membership 
               </li>
             </Link>
+            <li>
+              Destinations
+            </li>
             <li>
               Our Story
             </li>
@@ -58,8 +61,8 @@ function Nav() {
             </li>
             <li className='flex'>
               <Link className='px-3' to="/loyalty">
-              <div>
-                Loyalty Rewards
+              <div className='hover:underline'>
+                Minthouse Membership 
               </div>
               </Link>
               <div className='px-3'>
@@ -70,7 +73,7 @@ function Nav() {
               </div>
               {!loggedIn &&
                 <Link to='/login'>
-                  <div>
+                  <div className='hover:underline'>
                     Login
                   </div>
                 </Link>
