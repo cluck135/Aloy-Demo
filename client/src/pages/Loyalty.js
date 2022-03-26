@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Mint from '../components/Mint';
+// import Mint from '../components/Mint';
 import profilePic from '../images/Default_Profile.png';
 
 const Loyalty = () => {
@@ -14,7 +14,7 @@ const Loyalty = () => {
       <div className='w-full lg:w-full bg-DarkGreen text-white'>
         <ul className='flex flex-row justify-center items-center lg:justify-end'>
           <li className='flex lg:justify-center justify-end p-3 basis-2/3 lg:basis-auto'>
-            <Mint setMintMsg={setMintMsg} setNftJson={setNftJson} setMintBadgeMsg={setMintBadgeMsg} setConnected={setConnected}/>
+            {/* <Mint setMintMsg={setMintMsg} setNftJson={setNftJson} setMintBadgeMsg={setMintBadgeMsg} setConnected={setConnected}/> */}
           </li>
           <li className='flex lg:basis-auto selection:basis-1/3 items-center justify-end'>
             <div className='bg-contain w-12 h-12 lg:w-20 lg:h-20 lg:m-10 m-2 rounded-full ring-2 ring-white' style={{ backgroundImage: `url(${profilePic})`}}/>
