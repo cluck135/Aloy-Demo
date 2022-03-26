@@ -4,12 +4,12 @@ import { useMutation } from '@apollo/client';
 import {ADD_NFT} from '../utils/mutations';
 
 import { Buffer } from 'buffer';
-
+ 
 import myEpikNft from '../utils/MyEpikNFT.json';
 
 const CONTRACT_ADDRESS = "0x71964621a255F1da7ebde644F36258Cf365174dF";
 
-const MinthouseNft = ({setMintMsg, setNftJson, setMintBadgeMsg, setConnected}) => {
+const minthouseNft = ({setMintMsg, setNftJson, setMintBadgeMsg, setConnected}) => {
 
   const [currentAccount, setCurrentAccount] = useState("");
 
@@ -197,4 +197,4 @@ const renderMintUI = () => (
   );
 };
 
-export default MinthouseNft;
+export default minthouseNft;

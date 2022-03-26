@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import MinthouseNft from '../components/MinthouseNft';
+import MinthouseNft from '../components/minthouseNft';
 import profilePic from '../images/Default_Profile.png';
 
 const Loyalty = () => {
