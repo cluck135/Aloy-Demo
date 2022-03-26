@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-import { MenuIcon, XIcon, BeakerIcon } from '@heroicons/react/solid'
+import { MenuIcon, XIcon } from '@heroicons/react/solid'
 
 import Auth from '../utils/auth';
 import MHlogoBlk from '../images/MH_Logo_Black.png';

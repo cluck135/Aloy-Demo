@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Nft from '../components/Nft.js';
+import Nft from '../components/nft';
 import profilePic from '../images/Default_Profile.png';
 
 // import { GiftIcon } from '@heroicons/react/solid' // add icon to loading animation maybe
