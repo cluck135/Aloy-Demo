@@ -1,8 +1,9 @@
 import { ethers } from "ethers";
-import { Buffer } from 'buffer';
 import React, { useEffect, useState } from "react";
 import { useMutation } from '@apollo/client';
 import {ADD_NFT} from '../utils/mutations';
+
+import { Buffer } from 'buffer';
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useMutation } from '@apollo/client';
 
 import Auth from '../utils/auth';
@@ -8,10 +8,8 @@ import { ADD_USER } from '../utils/mutations';
 
 const Signup = () => {
   const [addUser] = useMutation(ADD_USER);
-  const [error, setError] = useState({})
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [errorMessages, setErrorMessages] = useState({});
 
