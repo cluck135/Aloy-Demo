@@ -8,7 +8,6 @@ import MHlogoBlk from '../images/MH_Logo_Black.png';
 import MHmonoBlk from '../images/MH_Monogram_Black.png';
 
 function Nav() {
-  const routes = ["/", "/loyalty"]
   const [showTabs, setShowTabs] = useState(false);
   const loggedIn = Auth.loggedIn();
   return (

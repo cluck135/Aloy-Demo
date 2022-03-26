@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from '@apollo/client';
 import {ADD_NFT} from '../utils/mutations';
 
+
+
 import myEpikNft from '../utils/MyEpikNFT.json';
 
 const CONTRACT_ADDRESS = "0x71964621a255F1da7ebde644F36258Cf365174dF";
 
-const Nft = ({setMintMsg, setNftJson, setMintBadgeMsg, setConnected}) => {
+const MinthouseNft = ({setMintMsg, setNftJson, setMintBadgeMsg, setConnected}) => {
 
   const [currentAccount, setCurrentAccount] = useState("");
 
@@ -16,7 +18,7 @@ const Nft = ({setMintMsg, setNftJson, setMintBadgeMsg, setConnected}) => {
 
   const handleMint = async (json) => {
 
-    const { data } = await addNft({
+    await addNft({
       variables: {
         nft: json
       },
@@ -99,7 +101,7 @@ const setupEventListener = async () => {
         }
         return;
       }))
-      let cleanedYourTokens = yourTokens.filter(token => token != undefined);
+      let cleanedYourTokens = yourTokens.filter(token => token !== undefined);
       let userNftMetaData = await Promise.all(cleanedYourTokens.map(async (tokenId) => {
         let nftBase64 = await connectedContract.tokenURI(tokenId);
         let base64 = await nftBase64.split('base64,');
@@ -196,4 +198,4 @@ const renderMintUI = () => (
   );
 };
 
-export default Nft;
+export default MinthouseNft;
