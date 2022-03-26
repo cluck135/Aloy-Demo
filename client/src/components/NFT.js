@@ -5,11 +5,10 @@ import { useMutation } from '@apollo/client';
 import {ADD_NFT} from '../utils/mutations';
 
 import myEpikNft from '../utils/MyEpikNFT.json';
-import { connected } from "process";
 
 const CONTRACT_ADDRESS = "0x71964621a255F1da7ebde644F36258Cf365174dF";
 
-const Nft = ({setMintMsg, setNftJson}) => {
+const Nft = ({setMintMsg, setNftJson, setMintBadgeMsg, setConnected}) => {
 
   const [currentAccount, setCurrentAccount] = useState("");
 
@@ -38,6 +37,7 @@ const Nft = ({setMintMsg, setNftJson}) => {
     if (accounts.length !== 0) {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
+        setConnected(true);
         setCurrentAccount(account)
         setupEventListener()
     } else {
@@ -76,6 +76,9 @@ const setupEventListener = async () => {
     const { ethereum } = window;
 
     if (ethereum) {
+      setMintBadgeMsg("Your Mint House Loyalty Badge is loading")
+      setConnected(true);
+
       // Same stuff again
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
