@@ -36,18 +36,14 @@ export const UPDATE_USER = gql`
   }
 `;
 
-export const ADD_POST = gql`
-  mutation addPost($description: String!, $username: String!, $nft: newNFT!) {
-    addPost(description: $description, username: $username, nft: $nft) {
-      _id
-      description
-      nft {
-        name
-        image
-        description
-      }
-    }
+export const ADD_NFT = gql`
+mutation addNft($nft: newNft!) {
+  addNft( nft: $nft) {
+    _id
+    name
+    image
   }
+}
 `;
 export const REMOVE_POST = gql`
   mutation removePost($username: String!, $postId: ID!) {

@@ -6,12 +6,15 @@ const nftSchema = new Schema({
         required: true,
         trim: true,
     },
+    discount: {
+        type: Number
+    },
     image:{
         type: String,
         required: true,
     },
 });
 
-const NFT = model('Nft', nftSchema);
+const Nft = model('Nft', nftSchema);
 
-module.exports = NFT;
+module.exports = Nft;

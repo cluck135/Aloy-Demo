@@ -1,33 +1,24 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, NFT } = require("../models");
+const { User, Nft } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate({
-        path: "posts",
-        populate: {
-          path: "nft",
-          model: "NFT",
-        },
-      });
+      const users = User.find().populate('nfts');
+      console.log(users);
+      return users
     },
-    user: async (_, { username }) => {
-      return User.findOne({ username }).populate({
-        path: "posts",
-        populate: {
-          path: "nft",
-          model: "NFT",
-        },
-      });
+    user: async (_, { email }) => {
+      return User.findOne({ email }).populate('nfts');
     },
-    // posts: async (_, { username }) => {
-    //   const params = username ? { username } : {};
-    //   return Post.find(params).sort({ createdAt: -1 }).populate("nft");
-    // },
-    // post: async (_, { postId }) => {
-    //   return Post.findOne({ _id: postId }).populate("nft");
+    nfts: async () => {
+      const nfts = Nft.find()
+      console.log(nfts)
+      return nfts;
+    },
+    // nft: async(_, { email }) => {
+    //   return Nft.findOne({ nftId })
     // },
     me: async (_, args, context) => {
       if (context.user) {
@@ -35,6 +26,14 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // posts: async (_, { email }) => {
+    //   const params = email ? { email } : {};
+    //   return Nft.find(params).sort({ createdAt: -1 })
+    // },
+    // post: async (_, { postId }) => {
+    //   return Post.findOne({ _id: postId }).populate("nft");
+    // },
+    
   },
 
   Mutation: {
@@ -62,23 +61,21 @@ const resolvers = {
 
       return { token, user };
     },
-    // addPost: async (_, { username, nft, description }) => {
-    //   const newNft = await NFT.create({
-    //     name: nft.name,
-    //     description: nft.description,
-    //     image: nft.image,
-    //   });
-    //   const post = await Post.create({
-    //     description,
-    //     nft: newNft._id,
-    //   });
-    //   await User.findOneAndUpdate(
-    //     { username: username },
-    //     { $addToSet: { posts: post._id } },
-    //     {
-    //       new: true,
-    //     }
-    //   );
+    addNft: async (_, { nft }, context) => {
+      const newNft = await Nft.create({
+        name: nft.name,
+        image: nft.image,
+      });
+
+    await User.findOneAndUpdate(
+        { email: context.user.email },
+        { $addToSet: { nfts: newNft._id } },
+        {
+          new: true,
+        }
+      );
+        return newNft;
+    }
 
     //   const returnPost = {
     //     ...post._doc,
@@ -145,7 +142,8 @@ const resolvers = {
     //     }
     //   );
     // },
-  },
-};
+  }
+}
+
 
 module.exports = resolvers;

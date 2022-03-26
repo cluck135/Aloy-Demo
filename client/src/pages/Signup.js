@@ -51,12 +51,12 @@ const Signup = () => {
             <div className="text-red-500">{renderErrorMessage()}</div>
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="p-2 mt-1 bg-teal-300 text-xl rounded-md">Submit</button>
+            <button type="submit" className="p-2 mt-1 bg-teal-300 text-xl rounded-md delay-100 duration-300 hover:shadow-lg hover:bg-teal-200">Submit</button>
           </div>
         </form>
         <div className="flex justify-center mt-5">
           <Link to="/login">
-            <div className="p-2 m-4 w-fit rounded-md bg-sky-300 text-xs">Login here</div>
+            <div className="p-2 m-4 w-fit rounded-md bg-sky-300 text-xs delay-100 duration-300 hover:shadow-lg hover:bg-sky-200">Login here</div>
           </Link>
         </div>
       </div>

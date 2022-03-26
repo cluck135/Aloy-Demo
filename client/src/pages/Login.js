@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useMutation } from '@apollo/client';
 
 import Auth from '../utils/auth';
@@ -11,7 +11,6 @@ const Login = () => {
   const [login] = useMutation(LOGIN_USER);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [errorMessages, setErrorMessages] = useState({});
 
@@ -29,7 +28,7 @@ const Login = () => {
         variables: { email: email.value, password: password.value },
       });
       Auth.login(data.login.token);
-      navigate(location.state.from)
+      navigate("/loyalty")
     } catch (e) {
       setErrorMessages({ message: "Email or password was incorrect" });
       console.error(e);
@@ -52,12 +51,12 @@ const Login = () => {
             <div className="text-red-500">{renderErrorMessage()}</div>          
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="p-2 mt-1 bg-teal-300 text-xl rounded-md hover:shadow-lg hover:bg-teal-200">Submit</button>
+            <button type="submit" className="p-2 mt-1 bg-teal-300 text-xl rounded-md delay-100 duration-300 hover:shadow-lg hover:bg-teal-200">Submit</button>
           </div>
         </form>
         <div className="flex justify-center mt-5">
           <Link to="/signup">
-            <div className="p-2 m-4 w-fit rounded-md bg-sky-300 text-xs hover:shadow-lg hover:bg-sky-200">Signup here</div>
+            <div className="p-2 m-4 w-fit rounded-md bg-sky-300 text-xs delay-100 duration-300 hover:shadow-lg hover:bg-sky-200">Signup here</div>
           </Link>
         </div>
       </div>

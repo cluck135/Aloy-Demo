@@ -1,4 +1,4 @@
 const User = require('./User');
-const NFT = require('./NFT');
+const Nft = require('./Nft');
 
-module.exports = { User, NFT };
+module.exports = { User, Nft };

@@ -6,20 +6,18 @@ const typeDefs = gql`
     email: String!
     points: Int
     openSeaLink: String
-    nfts: [NFT]
+    nfts: [Nft]
     password: String!
   }
 
-  type NFT {
+  type Nft {
     _id: ID!
     name: String!
-    description: String!
     image: String!
   }
 
-  input newNFT {
+  input newNft {
     name: String!
-    description: String!
     image: String!
   }
 
@@ -32,12 +30,14 @@ const typeDefs = gql`
     users: [User]
     user(email: String!): User
     me: User
+    nfts: [Nft]
   }
 
   type Mutation {
     addUser(email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     updateUser(email: String!, newTagline: String!, newAvatar: String): Auth
+    addNft(nft: newNft!): Nft
   }
 `;
 
